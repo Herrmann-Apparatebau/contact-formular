@@ -14,9 +14,9 @@ const userSchema = new Schema({
   colon: { type: Boolean, required: true },
   veterinary: { type: Boolean, required: true },
   disposables: { type: Boolean, required: true },
+  dsgvo: { type: Boolean, required: true },
 });
 
-const User =
-  mongoose.models.User || mongoose.model("User", userSchema);
+const User = mongoose.models.User || mongoose.model("User", userSchema);
 
 export default User;
