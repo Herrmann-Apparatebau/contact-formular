@@ -8,13 +8,13 @@ const userSchema = new Schema({
   zipCode: { type: String, required: true },
   city: { type: String, required: true },
   country: { type: String, required: true },
-  email: { type: String, required: true },
-  phone: { type: String, required: true },
-  ozon: { type: Boolean, required: true },
-  colon: { type: Boolean, required: true },
-  veterinary: { type: Boolean, required: true },
-  disposables: { type: Boolean, required: true },
-  dsgvo: { type: Boolean, required: true },
+  email: { type: String, required: false },
+  phone: { type: String, required: false },
+  ozon: { type: String, required: false },
+  colon: { type: String, required: false },
+  veterinary: { type: String, required: false },
+  disposables: { type: String, required: false },
+  dsgvo: { type: String, required: true },
 });
 
 const User = mongoose.models.User || mongoose.model("User", userSchema);
