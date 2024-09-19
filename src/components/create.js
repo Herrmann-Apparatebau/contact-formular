@@ -96,9 +96,9 @@ const StyledPopup = styled.div`
 `;
 
 const StyledPopupContent = styled.div`
-  width: 300px;
+  width: 250px;
   max-width: 300px;
-  height: 200px;
+  height: 100px;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -114,7 +114,9 @@ export default function Create() {
 
   const [success, setSuccess] = useState(false);
   const [fail, setFail] = useState(false);
+  const [loading, setLoading] = useState(false);
 
+  //Timer for popup
   useEffect(() => {
     if (success) {
       const timer = setTimeout(() => {
@@ -152,10 +154,12 @@ export default function Create() {
 
     finalUser = userObject;
 
+    setLoading(true);
+
     const userCreated = await createUser();
 
     if (userCreated) {
-      e.target.reset(); // Reset form only if user creation was successful
+      e.target.reset();
     }
 
     console.log(finalUser);
@@ -172,11 +176,12 @@ export default function Create() {
       });
 
       if (response.ok) {
-        console.log("user created");
+        setLoading(false);
         setSuccess(true);
         return true;
       } else {
         console.error(response.status);
+        setLoading(false);
         setFail(true);
         return false;
       }
@@ -222,7 +227,12 @@ export default function Create() {
           <StyledInput type="email" name="email" id="email" required />
 
           <label htmlFor="phone">Phone</label>
-          <StyledInput type="text" name="phone" id="phone" />
+          <StyledInput
+            type="text"
+            name="phone"
+            id="phone"
+            placeholder="+49 123 456 789"
+          />
           <br />
           <StyledInterestWrapper>
             <StyledInterestBox>
@@ -304,6 +314,13 @@ export default function Create() {
         <StyledPopup>
           <StyledPopupContent>
             <h3>Failed to submit</h3>
+          </StyledPopupContent>
+        </StyledPopup>
+      )}
+      {loading && (
+        <StyledPopup>
+          <StyledPopupContent>
+            <h3>Loading</h3>
           </StyledPopupContent>
         </StyledPopup>
       )}
