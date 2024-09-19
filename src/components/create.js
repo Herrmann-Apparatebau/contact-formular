@@ -13,11 +13,19 @@ const StyledFormWrapper = styled.div`
   padding-bottom: 20px;
 `;
 
+const StyledImageWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+`;
+
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   margin: 0 auto;
   margin-top: 20px;
+  width: 300px;
   max-width: 300px;
   padding: 20px;
   border: 1px solid #ccc;
@@ -29,11 +37,11 @@ const StyledInput = styled.input`
   margin-bottom: 10px;
 `;
 
-const StyledImageWrapper = styled.div`
+const StyledInterestWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
+  justify-content: space-between;
+  flex-wrap: wrap;
 `;
 
 export default function Create() {
@@ -114,12 +122,13 @@ export default function Create() {
           <label htmlFor="phone">Phone</label>
           <StyledInput type="text" name="phone" id="phone" />
           <br />
-          <div>
+          <StyledInterestWrapper>
             <label htmlFor="ozon">Ozon</label>
             <input type="checkbox" name="interests" id="ozon" value="ozon" />
 
             <label htmlFor="colon">Colon</label>
             <input type="checkbox" name="interests" id="colon" value="colon" />
+            <br />
 
             <label htmlFor="veterinary">Veterinary</label>
             <input
@@ -136,7 +145,7 @@ export default function Create() {
               id="disposables"
               value="disposables"
             />
-          </div>
+          </StyledInterestWrapper>
           <br />
 
           <div>
