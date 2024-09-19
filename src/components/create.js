@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 
 import logo from "/public/logo.jpg";
 
@@ -79,10 +80,60 @@ const StyledButton = styled.button`
   width: 100%;
 `;
 
+//Styled popup
+
+const StyledPopup = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999; /* Damit es über allen anderen Elementen liegt */
+`;
+
+const StyledPopupContent = styled.div`
+  width: 300px;
+  max-width: 300px;
+  height: 200px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
 export default function Create() {
   let finalUser = {};
 
-  const handleSubmit = (e) => {
+  const [success, setSuccess] = useState(false);
+  const [fail, setFail] = useState(false);
+
+  useEffect(() => {
+    if (success) {
+      const timer = setTimeout(() => {
+        setSuccess(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [success]);
+
+  useEffect(() => {
+    if (fail) {
+      const timer = setTimeout(() => {
+        setFail(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [fail]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // get form data
@@ -100,23 +151,39 @@ export default function Create() {
     };
 
     finalUser = userObject;
-    createUser();
-    e.target.reset();
+
+    const userCreated = await createUser();
+
+    if (userCreated) {
+      e.target.reset(); // Reset form only if user creation was successful
+    }
 
     console.log(finalUser);
   };
 
   async function createUser() {
-    const response = await fetch("/api/users/users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(finalUser),
-    });
+    try {
+      const response = await fetch("/api/users/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(finalUser),
+      });
 
-    if (!response.ok) {
-      console.error(response.status);
+      if (response.ok) {
+        console.log("user created");
+        setSuccess(true);
+        return true;
+      } else {
+        console.error(response.status);
+        setFail(true);
+        return false;
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+      setFail(true);
+      return false;
     }
   }
 
@@ -226,6 +293,20 @@ export default function Create() {
           <StyledButton type="submit">Submit</StyledButton>
         </StyledForm>
       </StyledFormWrapper>
+      {success && (
+        <StyledPopup>
+          <StyledPopupContent>
+            <h3>Successfully submitted</h3>
+          </StyledPopupContent>
+        </StyledPopup>
+      )}
+      {fail && (
+        <StyledPopup>
+          <StyledPopupContent>
+            <h3>Failed to submit</h3>
+          </StyledPopupContent>
+        </StyledPopup>
+      )}
     </>
   );
 }
