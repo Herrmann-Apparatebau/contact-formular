@@ -277,7 +277,7 @@ export default function Create() {
               href="/HAB_Datenschutzerklaerung_2019_12.pdf"
               target="_blank"
             >
-              Privacy Policy
+              Privacy Policy*
             </StyledLink>
             <input
               type="checkbox"
