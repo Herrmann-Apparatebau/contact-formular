@@ -78,6 +78,7 @@ const StyledButton = styled.button`
   border-radius: 5px;
   padding: 10px;
   width: 100%;
+  background-color: #7cc49f;
 `;
 
 //Styled popup
@@ -237,7 +238,7 @@ export default function Create() {
           <StyledInterestWrapper>
             <StyledInterestBox>
               <StyledInterestItem>
-                <label htmlFor="ozon">Ozon</label>
+                <label htmlFor="ozon">Ozone</label>
                 <input
                   type="checkbox"
                   name="interests"
