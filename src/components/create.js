@@ -2,15 +2,15 @@ import styled from "styled-components";
 import Image from "next/image";
 
 import logo from "/public/logo.jpg";
-import Link from "next/link";
 
 const StyledFormWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  min-height: 100vh;
+
+  box-sizing: border-box;
+  overflow-y: auto;
 `;
 
 const StyledImageWrapper = styled.div`
@@ -23,7 +23,6 @@ const StyledImageWrapper = styled.div`
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
   margin-top: 20px;
   width: 300px;
   max-width: 300px;
@@ -33,15 +32,51 @@ const StyledForm = styled.form`
   background-color: #f2f2f2;
 `;
 
+const StyledTextarea = styled.textarea`
+  border: 1px solid #ccc;
+  border-radius: 5px;
+`;
+
 const StyledInput = styled.input`
+  margin-top: 5px;
   margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 `;
 
 const StyledInterestWrapper = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: row;
   flex-wrap: wrap;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+`;
+
+const StyledInterestBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+const StyledInterestItem = styled.div`
+  display: flex;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+
+  justify-content: space-between;
+`;
+
+const StyledLink = styled.a`
+  color: black;
+`;
+
+const StyledButton = styled.button`
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
 `;
 
 export default function Create() {
@@ -90,7 +125,7 @@ export default function Create() {
       <StyledFormWrapper>
         <StyledForm onSubmit={handleSubmit}>
           <StyledImageWrapper>
-            <Image src={logo} alt="logo" width={100} height={100} />
+            <Image priority src={logo} alt="logo" width={100} height={100} />
           </StyledImageWrapper>
           <label htmlFor="company">Company</label>
           <StyledInput type="text" name="company" id="company" required />
@@ -123,39 +158,60 @@ export default function Create() {
           <StyledInput type="text" name="phone" id="phone" />
           <br />
           <StyledInterestWrapper>
-            <label htmlFor="ozon">Ozon</label>
-            <input type="checkbox" name="interests" id="ozon" value="ozon" />
+            <StyledInterestBox>
+              <StyledInterestItem>
+                <label htmlFor="ozon">Ozon</label>
+                <input
+                  type="checkbox"
+                  name="interests"
+                  id="ozon"
+                  value="ozon"
+                />
+              </StyledInterestItem>
 
-            <label htmlFor="colon">Colon</label>
-            <input type="checkbox" name="interests" id="colon" value="colon" />
-            <br />
-
-            <label htmlFor="veterinary">Veterinary</label>
-            <input
-              type="checkbox"
-              name="interests"
-              id="veterinary"
-              value="veterinary"
-            />
-
-            <label htmlFor="disposables">Disposables</label>
-            <input
-              type="checkbox"
-              name="interests"
-              id="disposables"
-              value="disposables"
-            />
+              <StyledInterestItem>
+                <label htmlFor="colon">Colon</label>
+                <input
+                  type="checkbox"
+                  name="interests"
+                  id="colon"
+                  value="colon"
+                />
+              </StyledInterestItem>
+            </StyledInterestBox>
+            <StyledInterestBox>
+              <StyledInterestItem>
+                <label htmlFor="veterinary">Veterinary</label>
+                <input
+                  type="checkbox"
+                  name="interests"
+                  id="veterinary"
+                  value="veterinary"
+                />
+              </StyledInterestItem>
+              <StyledInterestItem>
+                <label htmlFor="disposables">Disposables</label>
+                <input
+                  type="checkbox"
+                  name="interests"
+                  id="disposables"
+                  value="disposables"
+                />
+              </StyledInterestItem>
+            </StyledInterestBox>
           </StyledInterestWrapper>
+          <br />
+          <label htmlFor="information">Information</label>
+          <StyledTextarea type="text" name="information" id="information" />
           <br />
 
           <div>
-            <Link
+            <StyledLink
               href="/HAB_Datenschutzerklaerung_2019_12.pdf"
               target="_blank"
-              locale={false}
             >
               Privacy Policy
-            </Link>
+            </StyledLink>
             <input
               type="checkbox"
               name="dsgvo"
@@ -167,7 +223,7 @@ export default function Create() {
 
           <br />
 
-          <button type="submit">Create</button>
+          <StyledButton type="submit">Submit</StyledButton>
         </StyledForm>
       </StyledFormWrapper>
     </>

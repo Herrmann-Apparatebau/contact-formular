@@ -13,6 +13,7 @@ const userSchema = new Schema({
   email: { type: String, required: false },
   phone: { type: String, required: false },
   interests: { type: Array, required: false },
+  information: { type: String, required: false },
   dsgvo: { type: String, required: true },
 });
 
