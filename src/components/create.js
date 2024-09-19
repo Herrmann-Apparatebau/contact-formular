@@ -128,10 +128,10 @@ export default function Create() {
             <Image priority src={logo} alt="logo" width={100} height={100} />
           </StyledImageWrapper>
           <label htmlFor="company">Company</label>
-          <StyledInput type="text" name="company" id="company" required />
+          <StyledInput type="text" name="company" id="company" />
 
           <label htmlFor="title">Title</label>
-          <StyledInput type="text" name="title" id="title" required />
+          <StyledInput type="text" name="title" id="title" />
 
           <label htmlFor="firstName">First name*</label>
           <StyledInput type="text" name="firstName" id="firstName" required />
@@ -151,8 +151,8 @@ export default function Create() {
           <label htmlFor="country">Country*</label>
           <StyledInput type="text" name="country" id="country" required />
 
-          <label htmlFor="email">E-Mail</label>
-          <StyledInput type="email" name="email" id="email" />
+          <label htmlFor="email">E-Mail*</label>
+          <StyledInput type="email" name="email" id="email" required />
 
           <label htmlFor="phone">Phone</label>
           <StyledInput type="text" name="phone" id="phone" />
