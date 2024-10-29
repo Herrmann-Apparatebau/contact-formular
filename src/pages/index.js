@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 const StyledImageWrapper = styled.div`
   display: flex;
@@ -21,10 +22,10 @@ const StyledImageBox = styled.div`
 
 const HeaderWrapper = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   flex-direction: column;
-  min-height: 50vh;
+  min-height: 40vh;
 `;
 
 const StyledH2 = styled.h2`
@@ -32,13 +33,31 @@ const StyledH2 = styled.h2`
 `;
 
 export default function Home() {
+  const translations = {
+    en: {
+      selection: "Select your language",
+    },
+    de: {
+      selection: "Sprachauswahl",
+    },
+  };
+
   const router = useRouter();
+
+  const [language, setLanguage] = useState("en");
+
+  useEffect(() => {
+    const browserLanguage = navigator.language.split("-")[0];
+    setLanguage(browserLanguage);
+  }, []);
+
   return (
     <>
       <HeaderWrapper>
         <Image src="/logo.jpg" alt="logo" width={100} height={100}></Image>
-        <StyledH2>Sprachauswahl</StyledH2>
-        <StyledH2>Select your language</StyledH2>
+        <StyledH2>
+          {translations[language]?.selection || translations.en.selection}
+        </StyledH2>
       </HeaderWrapper>
       <StyledImageWrapper>
         <StyledImageBox>
