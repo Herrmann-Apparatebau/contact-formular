@@ -1,10 +1,108 @@
 import { useState, useEffect } from "react";
+import styled from "styled-components";
+
+const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  min-width: 100vw;
+`;
+
+const StyledUserCard = styled.div`
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  min-width: 300px;
+  max-width: 90vw;
+  box-sizing: border-box;
+  overflow-y: auto;
+`;
+
+const StyledCardText = styled.p`
+  margin: 6px;
+`;
+
+const StyledInfoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  border-radius: 5px;
+`;
+
+const StyledInterestsWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const StyledH3 = styled.h3`
+  margin: 3px;
+`;
 
 export default function Overview() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [users, setUsers] = useState([]);
+
+  const sampleData = [
+    {
+      _id: "67c6efa2a02621bb5204d33f",
+      company: "HERRMANN Apparatebau GmbH",
+      title: "Herr",
+      firstName: "Krischan",
+      lastName: "Klug",
+      address: "Kühtrieb 13",
+      zipCode: "63853",
+      city: "Mömlingen",
+      country: "Deutschland",
+      email: "kklug@hab.gmbh",
+      phone: "06022 31997",
+      interests: ["ozon", "colon"],
+      information: "TEST",
+      dsgvo: "true",
+      createdAt: "2025-03-04T12:18:42.256Z",
+      __v: 0,
+    },
+    {
+      _id: "67c6efa2a02621bb5204d33f",
+      company: "HERRMANN Apparatebau GmbH",
+      title: "Herr",
+      firstName: "Krischan",
+      lastName: "Klug",
+      address: "Kühtrieb 13",
+      zipCode: "63853",
+      city: "Mömlingen",
+      country: "Deutschland",
+      email: "kklug@hab.gmbh",
+      phone: "06022 31997",
+      interests: ["ozon", "colon"],
+      information: "TEST",
+      dsgvo: "true",
+      createdAt: "2025-03-04T12:18:42.256Z",
+      __v: 0,
+    },
+    {
+      _id: "67c6efa2a02621bb5204d33f",
+      company: "HERRMANN Apparatebau GmbH",
+      title: "Herr",
+      firstName: "Krischan",
+      lastName: "Klug",
+      address: "Kühtrieb 13",
+      zipCode: "63853",
+      city: "Mömlingen",
+      country: "Deutschland",
+      email: "kklug@hab.gmbh",
+      phone: "06022 31997",
+      interests: ["ozon", "colon"],
+      information: "TEST",
+      dsgvo: "true",
+      createdAt: "2025-03-04T12:18:42.256Z",
+      __v: 0,
+    },
+  ];
 
   const handlePasswordSubmit = async (e) => {
     e.preventDefault();
@@ -65,27 +163,36 @@ export default function Overview() {
   }
   if (isAuthenticated) {
     return (
-      <>
+      <ContentWrapper>
         <h1>Overview</h1>
-        <h2>Benutzer</h2>
-        {users.map((user) => (
-          <div key={user._id}>
-            <h3>{user.company}</h3>
-            <p>{user.title}</p>
-            <p>{user.firstName}</p>
-            <p>{user.lastName}</p>
-            <p>{user.address}</p>
-            <p>{user.zipCode}</p>
-            <p>{user.city}</p>
-            <p>{user.country}</p>
-            <p>{user.phone}</p>
-            <p>{user.interests}</p>
-            <p>{user.information}</p>
-            <p>{user.createdAt}</p>
-            <p>{user.email}</p>
-          </div>
+        {sampleData.map((user) => (
+          <StyledUserCard key={user._id}>
+            <StyledH3>{user.company}</StyledH3>
+            <StyledCardText>
+              {user.title} {user.firstName} {user.lastName}
+            </StyledCardText>
+            <StyledCardText>{user.address}</StyledCardText>
+            <StyledCardText>
+              {user.zipCode} {user.city}
+            </StyledCardText>
+            <StyledCardText>{user.country}</StyledCardText>
+            <StyledCardText>{user.phone}</StyledCardText>
+            <StyledCardText>{user.email}</StyledCardText>
+            <StyledInfoWrapper>
+              <StyledH3>Interessen:</StyledH3>
+              <StyledInterestsWrapper>
+                {user.interests.map((interest) => (
+                  <StyledCardText key={interest}>{interest}</StyledCardText>
+                ))}
+              </StyledInterestsWrapper>
+              <StyledH3>Info:</StyledH3>
+              <StyledCardText>{user.information}</StyledCardText>
+            </StyledInfoWrapper>
+
+            <StyledCardText>Erstellt am: {user.createdAt}</StyledCardText>
+          </StyledUserCard>
         ))}
-      </>
+      </ContentWrapper>
     );
   }
 }
