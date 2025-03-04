@@ -104,7 +104,7 @@ ${user.phone}`;
 
   if (!isAuthenticated) {
     return (
-      <>
+      <ContentWrapper>
         <h1>Overview</h1>
         <h2>Bitte Passwort eingeben</h2>
         <form onSubmit={handlePasswordSubmit}>
@@ -117,7 +117,7 @@ ${user.phone}`;
           <button type="submit">Einloggen</button>
         </form>
         {error && <p style={{ color: "red" }}>{error}</p>}
-      </>
+      </ContentWrapper>
     );
   }
   if (isAuthenticated) {
