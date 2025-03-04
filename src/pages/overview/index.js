@@ -53,45 +53,6 @@ export default function Overview() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [users, setUsers] = useState([]);
 
-  const sampleData = [
-    {
-      _id: "67c6efa2a02621bb5204d33f",
-      company: "HERRMANN Apparatebau GmbH",
-      title: "Herr",
-      firstName: "Krischan",
-      lastName: "Klug",
-      address: "Kühtrieb 13",
-      zipCode: "63853",
-      city: "Mömlingen",
-      country: "Deutschland",
-      email: "kklug@hab.gmbh",
-      phone: "06022 31997",
-      interests: ["ozon", "colon"],
-      information: "TEST",
-      dsgvo: "true",
-      createdAt: "2025-03-04T12:18:42.256Z",
-      __v: 0,
-    },
-    {
-      _id: "672",
-      company: "TEST",
-      title: "Herr",
-      firstName: "ASDF",
-      lastName: "GHJKL",
-      address: "Kühtrieb 13",
-      zipCode: "63853",
-      city: "Mömlingen",
-      country: "Deutschland",
-      email: "kklug@hab.gmbh",
-      phone: "06022 31997",
-      interests: ["ozon", "colon"],
-      information: "TEST",
-      dsgvo: "true",
-      createdAt: "2025-03-04T12:18:42.256Z",
-      __v: 0,
-    },
-  ];
-
   const handlePasswordSubmit = async (e) => {
     e.preventDefault();
 
@@ -121,7 +82,6 @@ export default function Overview() {
           const response = await fetch("/api/users/users");
           const data = await response.json();
           setUsers(data);
-          console.log(data);
         } catch (error) {
           console.error("Error fetching data:", error);
         }
@@ -139,10 +99,7 @@ ${user.zipCode} ${user.city}
 ${user.email}
 ${user.phone}`;
 
-    navigator.clipboard.writeText(formattedText).then(
-      () => alert("Daten wurden in die Zwischenablage kopiert!"),
-      (err) => console.error("Fehler beim Kopieren: ", err)
-    );
+    navigator.clipboard.writeText(formattedText);
   };
 
   if (!isAuthenticated) {
@@ -167,7 +124,7 @@ ${user.phone}`;
     return (
       <ContentWrapper>
         <h1>Overview</h1>
-        {sampleData.map((user) => (
+        {users.map((user) => (
           <StyledUserCard key={user._id}>
             <StyledH3>{user.company}</StyledH3>
             <StyledCardText>
