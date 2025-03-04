@@ -67,7 +67,24 @@ export default function Overview() {
     return (
       <>
         <h1>Overview</h1>
-        <h2>KORREKT</h2>
+        <h2>Benutzer</h2>
+        {users.map((user) => (
+          <div key={user._id}>
+            <h3>{user.company}</h3>
+            <p>{user.title}</p>
+            <p>{user.firstName}</p>
+            <p>{user.lastName}</p>
+            <p>{user.address}</p>
+            <p>{user.zipCode}</p>
+            <p>{user.city}</p>
+            <p>{user.country}</p>
+            <p>{user.phone}</p>
+            <p>{user.interests}</p>
+            <p>{user.information}</p>
+            <p>{user.createdAt}</p>
+            <p>{user.email}</p>
+          </div>
+        ))}
       </>
     );
   }
