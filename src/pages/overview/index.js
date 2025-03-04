@@ -41,6 +41,12 @@ const StyledH3 = styled.h3`
   margin: 3px;
 `;
 
+const CopyButton = styled.button`
+  margin-top: 10px;
+  padding: 6px 12px;
+  cursor: pointer;
+`;
+
 export default function Overview() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -67,29 +73,11 @@ export default function Overview() {
       __v: 0,
     },
     {
-      _id: "67c6efa2a02621bb5204d33f",
-      company: "HERRMANN Apparatebau GmbH",
+      _id: "672",
+      company: "TEST",
       title: "Herr",
-      firstName: "Krischan",
-      lastName: "Klug",
-      address: "Kühtrieb 13",
-      zipCode: "63853",
-      city: "Mömlingen",
-      country: "Deutschland",
-      email: "kklug@hab.gmbh",
-      phone: "06022 31997",
-      interests: ["ozon", "colon"],
-      information: "TEST",
-      dsgvo: "true",
-      createdAt: "2025-03-04T12:18:42.256Z",
-      __v: 0,
-    },
-    {
-      _id: "67c6efa2a02621bb5204d33f",
-      company: "HERRMANN Apparatebau GmbH",
-      title: "Herr",
-      firstName: "Krischan",
-      lastName: "Klug",
+      firstName: "ASDF",
+      lastName: "GHJKL",
       address: "Kühtrieb 13",
       zipCode: "63853",
       city: "Mömlingen",
@@ -143,6 +131,20 @@ export default function Overview() {
     }
   }, [isAuthenticated]);
 
+  const handleCopy = (user) => {
+    const formattedText = `${user.title} ${user.firstName} ${user.lastName}
+${user.address}
+${user.country}
+${user.zipCode} ${user.city}
+${user.email}
+${user.phone}`;
+
+    navigator.clipboard.writeText(formattedText).then(
+      () => alert("Daten wurden in die Zwischenablage kopiert!"),
+      (err) => console.error("Fehler beim Kopieren: ", err)
+    );
+  };
+
   if (!isAuthenticated) {
     return (
       <>
@@ -190,6 +192,9 @@ export default function Overview() {
             </StyledInfoWrapper>
 
             <StyledCardText>Erstellt am: {user.createdAt}</StyledCardText>
+            <CopyButton onClick={() => handleCopy(user)}>
+              Daten kopieren
+            </CopyButton>
           </StyledUserCard>
         ))}
       </ContentWrapper>
