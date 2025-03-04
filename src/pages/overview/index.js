@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Overview() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [users, setUsers] = useState([]);
 
   const handlePasswordSubmit = async (e) => {
     e.preventDefault();
@@ -27,6 +28,23 @@ export default function Overview() {
     }
   };
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      async function fetchData() {
+        try {
+          const response = await fetch("/api/users/users");
+          const data = await response.json();
+          setUsers(data);
+          console.log(data);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
+
+      fetchData();
+    }
+  }, [isAuthenticated]);
+
   if (!isAuthenticated) {
     return (
       <>
@@ -45,11 +63,12 @@ export default function Overview() {
       </>
     );
   }
-
-  return (
-    <>
-      <h1>Overview</h1>
-      <h2>KORREKT</h2>
-    </>
-  );
+  if (isAuthenticated) {
+    return (
+      <>
+        <h1>Overview</h1>
+        <h2>KORREKT</h2>
+      </>
+    );
+  }
 }
