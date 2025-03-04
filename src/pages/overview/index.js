@@ -97,7 +97,7 @@ ${user.address}
 ${user.country}
 ${user.zipCode} ${user.city}
 ${user.email}
-${user.phone}`;
+Telefon: ${user.phone}`;
 
     navigator.clipboard.writeText(formattedText);
   };
